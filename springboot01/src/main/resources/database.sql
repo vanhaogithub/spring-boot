@@ -1,7 +1,7 @@
 use springboot01;
 
-insert into role(id,name) values('1','Administrator');
-insert into role(id,name) values('2','Employee');
+insert into role(id,name) values('1','ADMIN');
+insert into role(id,name) values('2','USER');
 
 insert into user(id,email,first_name,last_name,password)
 values('1','admin@gamil.com','admin','Administrator','$2a$10$/RUbuT9KIqk6f8enaTQiLOXzhnUkiwEJRdtzdrMXXwU7dgnLKTCYG');
