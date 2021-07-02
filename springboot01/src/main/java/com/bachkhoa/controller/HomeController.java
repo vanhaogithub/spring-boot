@@ -19,4 +19,20 @@ public class HomeController {
     public String userIndex() {
         return "user/index";
     }
+    
+    @GetMapping("/403")
+    public String accessDenied() {
+        return "403Page";
+    }
+    
+    @GetMapping("/admin")
+    public String goToAdmin() {
+        return "admin";
+    }
+    
+    @GetMapping("/register")
+    public String registration() {
+        return "registration";
+    }
 }
+

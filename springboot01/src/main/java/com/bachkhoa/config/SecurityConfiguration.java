@@ -22,6 +22,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	// Trang chỉ dành cho ADMIN
+        http.authorizeRequests().antMatchers("/admin").access("hasRole('ADMIN')");
+
+        // Khi người dùng đã login, với vai trò user .
+        // Nhưng cố ý  truy cập vào trang admin
+        // Ngoại lệ AccessDeniedException sẽ ném ra.
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        
         http.authorizeRequests()
                     .antMatchers(
                             "/registration**",
@@ -41,6 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/login?logout")
                 .permitAll();
+
     }
 
     @Bean
@@ -61,21 +70,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    // USER TEMP
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        // Tạo ra user trong bộ nhớ
-        // lưu ý, chỉ sử dụng cách này để minh họa
-        // Còn thực tế chúng ta sẽ kiểm tra user trong csdl
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(
-                User.withDefaultPasswordEncoder() // Sử dụng mã hóa password đơn giản
-                    .username("hao")
-                    .password("123456")
-                    .roles("ADMIN") // phân quyền là người dùng.
-                    .build()
-        );
-        return manager;
-    }
 }

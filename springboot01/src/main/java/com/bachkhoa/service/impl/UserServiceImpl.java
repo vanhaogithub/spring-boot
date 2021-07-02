@@ -37,13 +37,13 @@ public class UserServiceImpl implements UserService {
 		user.setLastName(registration.getLastName());
 		user.setEmail(registration.getEmail());
 		user.setPassword(passwordEncoder.encode(registration.getPassword()));
-		user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+		user.setRoles(Arrays.asList(new Role("USER")));
 		return userRepository.save(user);
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		User user = userRepository.findByEmail(email);
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		User user = userRepository.findByFirstName(userName);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
