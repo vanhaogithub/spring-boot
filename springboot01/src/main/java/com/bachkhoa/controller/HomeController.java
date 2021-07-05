@@ -25,14 +25,5 @@ public class HomeController {
         return "403Page";
     }
     
-    @GetMapping("/admin")
-    public String goToAdmin() {
-        return "admin";
-    }
-    
-    @GetMapping("/register")
-    public String registration() {
-        return "registration";
-    }
 }
 
