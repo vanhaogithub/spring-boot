@@ -1,8 +1,8 @@
 package com.bachkhoa.service.impl;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -32,26 +32,30 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public User save(UserRegistrationDto registration) {
+		String userRole = registration.getIsAdmin() ? "ADMIN" : "USER";
 		User user = new User();
-		user.setFirstName(registration.getFirstName());
-		user.setLastName(registration.getLastName());
+		user.setUserName(registration.getUserName());
 		user.setEmail(registration.getEmail());
 		user.setPassword(passwordEncoder.encode(registration.getPassword()));
-		user.setRoles(Arrays.asList(new Role("USER")));
+		user.setRoles(Arrays.asList(new Role(userRole)));
 		return userRepository.save(user);
 	}
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		User user = userRepository.findByFirstName(userName);
+		User user = userRepository.findByUserName(userName);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
+		List<GrantedAuthority> authorities = new ArrayList<>();
+		for (Role role : user.getRoles()) {
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		}
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-				mapRolesToAuthorities(user.getRoles()));
+				authorities);
 	}
-
+	/*
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-	}
+	}*/
 }

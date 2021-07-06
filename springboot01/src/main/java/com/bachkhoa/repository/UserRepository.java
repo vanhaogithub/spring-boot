@@ -11,6 +11,6 @@ import com.bachkhoa.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByEmail(String email);
 
-	@Query(value = "SELECT * FROM user u WHERE u.first_name = :firstName", nativeQuery = true)
-	User findByFirstName(@Param("firstName") String firstName);
+	@Query(value = "SELECT * FROM user u WHERE u.user_name = :userName", nativeQuery = true)
+	User findByUserName(@Param("userName") String userName);
 }

@@ -13,10 +13,7 @@ import com.bachkhoa.constraint.FieldMatch;
 public class UserRegistrationDto {
 
     @NotEmpty
-    private String firstName;
-
-    @NotEmpty
-    private String lastName;
+    private String userName;
 
     @NotEmpty
     private String password;
@@ -33,22 +30,14 @@ public class UserRegistrationDto {
     private String confirmEmail;
 
     @AssertTrue
-    private Boolean terms;
+    private Boolean isAdmin;
 
-    public String getFirstName() {
-        return firstName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -83,12 +72,12 @@ public class UserRegistrationDto {
         this.confirmEmail = confirmEmail;
     }
 
-    public Boolean getTerms() {
-        return terms;
+    public Boolean getIsAdmin() {
+        return isAdmin;
     }
 
-    public void setTerms(Boolean terms) {
-        this.terms = terms;
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
 }

@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	// Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers("/admin/home").access("hasRole('ADMIN')");
+        //http.authorizeRequests().antMatchers("/admin/home").hasRole("ADMIN");
 
         // Khi người dùng đã login, với vai trò user .
         // Nhưng cố ý  truy cập vào trang admin
@@ -30,7 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         
         http.authorizeRequests()
                     .antMatchers(
-                            "/registration**",
                             "/js/**",
                             "/css/**",
                             "/img/**",
